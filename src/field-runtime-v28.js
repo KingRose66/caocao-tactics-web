@@ -9,15 +9,12 @@ function convertTile(node){
   const d=document.createElement('div');
   const kept=[...node.classList].filter(c=>c!=='tile');
   d.className=['cell-hitbox',...kept].join(' ');
-  d.setAttribute('role','button');
-  d.tabIndex=-1;
   for(const a of [...node.attributes]){
-    if(!['class','style','type','tabindex'].includes(a.name))d.setAttribute(a.name,a.value);
+    if(!['class','style','type','tabindex','role'].includes(a.name))d.setAttribute(a.name,a.value);
   }
   while(node.firstChild)d.append(node.firstChild);
-  const click=node.onclick,enter=node.onmouseenter;
-  d.onclick=click;d.onmouseenter=enter;
-  d.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&typeof click==='function'){e.preventDefault();click.call(d,e)}});
+  d.onclick=node.onclick;
+  d.onmouseenter=node.onmouseenter;
   node.replaceWith(d);
   return d;
 }
@@ -29,7 +26,7 @@ function layout(){
     const t=convertTile(node);
     if(!t?.classList?.contains('cell-hitbox'))return;
     const x=i%14,y=Math.floor(i/14);
-    t.style.cssText=`position:absolute;left:${x*100/14}%;top:${y*10}%;width:${100/14}%;height:10%;margin:0;padding:0;border:0;outline:0;box-shadow:none;background:transparent;`;
+    t.style.cssText=`position:absolute;left:${x*100/14}%;top:${y*10}%;width:${100/14}%;height:10%;margin:0;padding:0;border:0;outline:0;box-shadow:none;background:transparent;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;`;
     t.querySelectorAll('.sprite').forEach(ensureSprite);
   });
   document.querySelectorAll('.portrait .sprite').forEach(ensureSprite);
