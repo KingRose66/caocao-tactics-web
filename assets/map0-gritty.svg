@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="448" height="320" viewBox="0 0 448 320">
+<defs>
+  <filter id="groundTex" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" seed="7" result="n"/>
+    <feColorMatrix in="n" values="0.22 0 0 0 0.42  0 0.20 0 0 0.38  0 0 0.15 0 0.24  0 0 0 .34 0" result="c"/>
+    <feBlend in="SourceGraphic" in2="c" mode="multiply"/>
+  </filter>
+  <filter id="forestTex" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.13" numOctaves="4" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feDropShadow dx="1.5" dy="2" stdDeviation="1.6" flood-color="#16150f" flood-opacity=".65"/>
+  </filter>
+  <filter id="rockTex" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="5" seed="19" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="9"/>
+    <feBlend in="SourceGraphic" in2="n" mode="multiply"/>
+  </filter>
+  <filter id="waterTex" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03 0.25" numOctaves="2" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="6"/>
+  </filter>
+  <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#8f835f"/><stop offset=".5" stop-color="#837851"/><stop offset="1" stop-color="#756d48"/>
+  </linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#2f535c"/><stop offset=".5" stop-color="#3f6872"/><stop offset="1" stop-color="#294b54"/>
+  </linearGradient>
+  <g id="treeA">
+    <ellipse cx="0" cy="8" rx="10" ry="8" fill="#243f25"/>
+    <ellipse cx="-7" cy="4" rx="8" ry="7" fill="#314d2a"/>
+    <ellipse cx="7" cy="3" rx="8" ry="7" fill="#38582f"/>
+    <ellipse cx="1" cy="0" rx="7" ry="6" fill="#4c6938"/>
+    <rect x="-1.5" y="12" width="3" height="8" fill="#493527"/>
+  </g>
+  <g id="pine">
+    <rect x="-1.2" y="9" width="2.4" height="10" fill="#443226"/>
+    <path d="M0 -10L-10 5h6l-8 9h24L4 5h6z" fill="#26412b"/>
+    <path d="M0 -5L-7 6h5l-5 6H7L2 6h5z" fill="#3f5f35"/>
+  </g>
+  <g id="house">
+    <rect x="-9" y="-1" width="18" height="13" rx="1" fill="#a07852"/>
+    <path d="M-12 0L0 -10L12 0z" fill="#593727"/>
+    <rect x="-2" y="5" width="4" height="7" fill="#4a3228"/>
+    <rect x="4" y="3" width="3" height="3" fill="#c1a16b"/>
+  </g>
+</defs>
+
+<rect width="448" height="320" fill="url(#soil)" filter="url(#groundTex)"/>
+
+<!-- broad organic grass bands -->
+<path d="M0 38C52 18 120 18 173 39c45 18 94 22 137 8 53-17 95-10 138 8v105c-47-17-91-18-136-4-52 17-105 18-161 1C99 142 48 146 0 163z" fill="#6f7648" opacity=".72" filter="url(#groundTex)"/>
+<path d="M0 188c54-14 110-10 157 11 56 25 109 27 159 8 49-18 91-11 132 7v106H0z" fill="#697143" opacity=".76" filter="url(#groundTex)"/>
+
+<!-- dry upper-left terrace -->
+<path d="M0 0h104v52L84 72H0z" fill="#9c895f" filter="url(#groundTex)"/>
+<path d="M0 57h98v14H0z" fill="#4d3929"/>
+<path d="M0 57h98v3H0z" fill="#826246"/>
+<g fill="none" stroke="#c0a66f" stroke-width="1.3" opacity=".55"><path d="M5 9h76"/><path d="M2 24h91"/><path d="M9 39h72"/></g>
+
+<!-- river with irregular banks -->
+<path d="M228 0c-4 57 4 96 0 139-3 48 5 96 1 181h112c-3-77 5-126 0-177-5-50 5-94 1-143z" fill="#9e8c65"/>
+<path d="M240 0c-4 57 4 96 1 139-3 47 5 96 1 181h86c-3-78 5-126 0-177-5-50 5-94 1-143z" fill="url(#water)" filter="url(#waterTex)"/>
+<path d="M234 0c-2 58 4 98 2 141-3 46 4 95 1 179" fill="none" stroke="#5a5442" stroke-width="3"/>
+<path d="M335 0c2 58-4 98-2 141 3 46-4 95-1 179" fill="none" stroke="#5a5442" stroke-width="3"/>
+<path d="M239 0c-1 57 5 96 3 140-2 46 5 95 2 180" fill="none" stroke="#c0a879" stroke-width="2" opacity=".62"/>
+<path d="M330 0c1 57-5 96-3 140 2 46-5 95-2 180" fill="none" stroke="#c0a879" stroke-width="2" opacity=".62"/>
+
+<!-- bridge -->
+<g transform="translate(236 120)">
+  <rect width="98" height="54" fill="#5a402d"/>
+  <rect y="5" width="98" height="5" fill="#31231b"/>
+  <rect y="44" width="98" height="5" fill="#31231b"/>
+  <g fill="#98714c"><rect x="5" width="7" height="54"/><rect x="18" width="7" height="54"/><rect x="31" width="7" height="54"/><rect x="44" width="7" height="54"/><rect x="57" width="7" height="54"/><rect x="70" width="7" height="54"/><rect x="83" width="7" height="54"/></g>
+  <g fill="#69492f"><rect x="9" width="2" height="54"/><rect x="22" width="2" height="54"/><rect x="35" width="2" height="54"/><rect x="48" width="2" height="54"/><rect x="61" width="2" height="54"/><rect x="74" width="2" height="54"/><rect x="87" width="2" height="54"/></g>
+</g>
+
+<!-- worn military road -->
+<path d="M18 313C67 286 113 255 157 225c31-22 58-43 81-66" fill="none" stroke="#6d593e" stroke-width="23" stroke-linecap="round"/>
+<path d="M18 313C67 286 113 255 157 225c31-22 58-43 81-66" fill="none" stroke="#a98a5a" stroke-width="13" stroke-linecap="round" filter="url(#groundTex)"/>
+<path d="M326 143c35-24 68-50 112-82" fill="none" stroke="#6d593e" stroke-width="23" stroke-linecap="round"/>
+<path d="M326 143c35-24 68-50 112-82" fill="none" stroke="#a98a5a" stroke-width="13" stroke-linecap="round" filter="url(#groundTex)"/>
+
+<!-- dense irregular forests -->
+<g filter="url(#forestTex)">
+  <g transform="translate(26 38)"><use href="#treeA"/><use href="#treeA" x="22" y="-3"/><use href="#pine" x="43" y="3"/><use href="#treeA" x="62" y="0"/><use href="#treeA" x="12" y="23"/><use href="#treeA" x="38" y="25"/><use href="#pine" x="61" y="28"/><use href="#treeA" x="79" y="24"/></g>
+  <g transform="translate(62 111)"><use href="#treeA"/><use href="#treeA" x="25" y="-5"/><use href="#pine" x="50" y="3"/><use href="#treeA" x="12" y="25"/><use href="#treeA" x="38" y="29"/><use href="#treeA" x="65" y="25"/></g>
+  <g transform="translate(5 221)"><use href="#treeA"/><use href="#treeA" x="26" y="-4"/><use href="#pine" x="51" y="2"/><use href="#treeA" x="12" y="24"/><use href="#treeA" x="39" y="29"/><use href="#pine" x="66" y="27"/></g>
+  <g transform="translate(344 109)"><use href="#treeA"/><use href="#pine" x="25" y="-2"/><use href="#treeA" x="49" y="4"/><use href="#treeA" x="12" y="28"/><use href="#treeA" x="39" y="25"/><use href="#pine" x="66" y="31"/></g>
+  <g transform="translate(340 221)"><use href="#treeA"/><use href="#treeA" x="28" y="-5"/><use href="#pine" x="54" y="2"/><use href="#treeA" x="13" y="27"/><use href="#treeA" x="42" y="28"/><use href="#treeA" x="70" y="31"/></g>
+</g>
+
+<!-- villages -->
+<g transform="translate(366 44)"><use href="#house"/><use href="#house" x="27" y="11"/><rect x="-12" y="17" width="66" height="3" fill="#72583c" opacity=".55"/></g>
+<g transform="translate(166 193)"><use href="#house"/><use href="#house" x="27" y="10"/><rect x="-11" y="17" width="65" height="3" fill="#72583c" opacity=".5"/></g>
+
+<!-- rocky eastern highland -->
+<path d="M397 193l51-32v159h-78c20-30 22-56 9-82z" fill="#625b49" filter="url(#rockTex)"/>
+<path d="M410 207l38-23v136h-54c15-25 18-46 9-66z" fill="#81745b" opacity=".62" filter="url(#rockTex)"/>
+<g fill="#494137" opacity=".9"><polygon points="401,206 413,190 421,208 414,222"/><polygon points="425,227 439,211 446,229 437,244"/><polygon points="404,258 417,243 425,261 417,276"/><polygon points="427,285 440,268 447,286 439,302"/></g>
+
+<!-- wear / tufts -->
+<g stroke="#525d38" stroke-width="1"><path d="M145 72v5m30 13v5m-57 168v5m232 10v5m55-102v5M78 196v5m130 48v4m-101-164v4"/></g>
+<g stroke="#9b8859" stroke-width="1"><path d="M142 75h7m23 18h7m175 189h7m40-98h7m-206 68h7"/></g>
+<rect x="1.5" y="1.5" width="445" height="317" fill="none" stroke="#30261f" stroke-width="3" opacity=".85"/>
+</svg>
