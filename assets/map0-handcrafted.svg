@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="448" height="320" viewBox="0 0 448 320" shape-rendering="crispEdges">
+<defs>
+  <pattern id="grass" width="16" height="16" patternUnits="userSpaceOnUse">
+    <rect width="16" height="16" fill="#6d7948"/>
+    <rect x="2" y="3" width="3" height="1" fill="#7d8754"/>
+    <rect x="10" y="6" width="2" height="1" fill="#59653d"/>
+    <rect x="5" y="12" width="1" height="3" fill="#536039"/>
+    <rect x="13" y="13" width="2" height="1" fill="#867d4d"/>
+  </pattern>
+  <pattern id="water" width="24" height="16" patternUnits="userSpaceOnUse">
+    <rect width="24" height="16" fill="#4d7073"/>
+    <rect x="3" y="4" width="9" height="1" fill="#6d8a89"/>
+    <rect x="13" y="10" width="8" height="1" fill="#3d6265"/>
+    <rect x="7" y="14" width="12" height="1" fill="#789493"/>
+  </pattern>
+  <g id="tree">
+    <rect x="14" y="25" width="4" height="10" fill="#4a3222"/>
+    <rect x="7" y="10" width="18" height="13" fill="#213b22"/>
+    <rect x="4" y="16" width="24" height="11" fill="#2f512c"/>
+    <rect x="9" y="7" width="14" height="8" fill="#385d31"/>
+    <rect x="11" y="15" width="12" height="7" fill="#4a6b3a"/>
+    <rect x="2" y="20" width="10" height="6" fill="#294828"/>
+    <rect x="21" y="18" width="10" height="7" fill="#294828"/>
+  </g>
+  <g id="house">
+    <rect x="4" y="12" width="17" height="13" fill="#9d704a"/>
+    <path d="M1 13L12 3l12 10z" fill="#5d3b29"/>
+    <rect x="10" y="18" width="4" height="7" fill="#493126"/>
+    <rect x="16" y="16" width="3" height="3" fill="#c6a86d"/>
+  </g>
+</defs>
+<rect width="448" height="320" fill="url(#grass)"/>
+<!-- broad tonal variation -->
+<path d="M0 0h180c-22 27-18 61 13 82-47 18-76 44-83 78H0z" fill="#758252" opacity=".38"/>
+<path d="M245 0h203v111c-52-9-94 4-127 34-17-38-47-62-76-78z" fill="#637044" opacity=".30"/>
+<path d="M0 216c52-21 110-16 153 11 51 31 126 34 181 3 43-24 80-25 114-12v102H0z" fill="#667245" opacity=".36"/>
+<!-- hill / dry ground upper-left -->
+<path d="M0 0h102v57c-24 7-48 9-67 4L0 73z" fill="#8f7b58"/>
+<path d="M0 7h98M0 22h89M0 38h95" stroke="#ad976c" stroke-width="2" opacity=".65"/>
+<path d="M0 61h103v10H0z" fill="#4f3c2b"/>
+<path d="M0 61h103v3H0z" fill="#72583e"/>
+<!-- river with irregular banks -->
+<path d="M236 0 C230 64 235 95 232 132 C230 176 239 224 236 320 L332 320 C328 252 334 205 329 158 C325 104 336 65 333 0 Z" fill="#99835e"/>
+<path d="M244 0 C238 62 243 98 240 134 C238 181 247 224 244 320 L324 320 C320 251 326 205 321 158 C317 104 328 65 325 0 Z" fill="url(#water)"/>
+<path d="M248 0 C243 64 249 100 247 136 C245 181 253 225 251 320" fill="none" stroke="#6a634a" stroke-width="3"/>
+<path d="M317 0 C321 64 311 103 314 157 C319 208 313 256 316 320" fill="none" stroke="#6a634a" stroke-width="3"/>
+<!-- bridge -->
+<g transform="translate(242 122)">
+  <rect x="0" y="0" width="84" height="45" fill="#65472f"/>
+  <rect x="4" y="0" width="4" height="45" fill="#9b7650"/><rect x="14" y="0" width="4" height="45" fill="#9b7650"/><rect x="24" y="0" width="4" height="45" fill="#9b7650"/><rect x="34" y="0" width="4" height="45" fill="#9b7650"/><rect x="44" y="0" width="4" height="45" fill="#9b7650"/><rect x="54" y="0" width="4" height="45" fill="#9b7650"/><rect x="64" y="0" width="4" height="45" fill="#9b7650"/><rect x="74" y="0" width="4" height="45" fill="#9b7650"/>
+  <rect x="0" y="5" width="84" height="4" fill="#36271d"/><rect x="0" y="36" width="84" height="4" fill="#36271d"/>
+</g>
+<!-- dirt road: bottom left to bridge and upper-right -->
+<path d="M21 308 C73 279 116 251 161 220 C193 198 219 181 245 157" fill="none" stroke="#806a47" stroke-width="17" stroke-linecap="round"/>
+<path d="M21 308 C73 279 116 251 161 220 C193 198 219 181 245 157" fill="none" stroke="#a58b59" stroke-width="9" stroke-linecap="round"/>
+<path d="M326 143 C354 121 381 99 426 72" fill="none" stroke="#806a47" stroke-width="17" stroke-linecap="round"/>
+<path d="M326 143 C354 121 381 99 426 72" fill="none" stroke="#a58b59" stroke-width="9" stroke-linecap="round"/>
+<g fill="#5f4b34" opacity=".7"><rect x="59" y="279" width="9" height="2"/><rect x="109" y="247" width="7" height="2"/><rect x="158" y="216" width="10" height="2"/><rect x="200" y="187" width="8" height="2"/><rect x="363" y="113" width="8" height="2"/><rect x="402" y="87" width="7" height="2"/></g>
+<!-- forest clusters: irregular, overlapping -->
+<g transform="translate(24 34)"><use href="#tree" x="0" y="0"/><use href="#tree" x="25" y="-5"/><use href="#tree" x="51" y="3"/><use href="#tree" x="10" y="28"/><use href="#tree" x="39" y="24"/><use href="#tree" x="68" y="31"/></g>
+<g transform="translate(54 111)"><use href="#tree" x="0" y="0"/><use href="#tree" x="27" y="-6"/><use href="#tree" x="55" y="6"/><use href="#tree" x="15" y="27"/><use href="#tree" x="45" y="29"/></g>
+<g transform="translate(0 212)"><use href="#tree" x="0" y="0"/><use href="#tree" x="28" y="-7"/><use href="#tree" x="56" y="5"/><use href="#tree" x="14" y="26"/><use href="#tree" x="43" y="28"/></g>
+<g transform="translate(334 107)"><use href="#tree" x="0" y="0"/><use href="#tree" x="28" y="-5"/><use href="#tree" x="57" y="6"/><use href="#tree" x="13" y="28"/><use href="#tree" x="44" y="25"/></g>
+<g transform="translate(337 213)"><use href="#tree" x="0" y="0"/><use href="#tree" x="28" y="-4"/><use href="#tree" x="56" y="4"/><use href="#tree" x="12" y="29"/><use href="#tree" x="42" y="26"/></g>
+<!-- village -->
+<g transform="translate(363 43)"><use href="#house"/><use href="#house" x="25" y="10"/></g>
+<g transform="translate(163 185)"><use href="#house"/><use href="#house" x="25" y="10"/></g>
+<!-- sparse battlefield detail -->
+<g fill="#465533"><rect x="146" y="76" width="2" height="5"/><rect x="178" y="93" width="2" height="4"/><rect x="121" y="263" width="1" height="5"/><rect x="352" y="282" width="2" height="5"/><rect x="405" y="184" width="2" height="4"/><rect x="77" y="198" width="2" height="5"/></g>
+<g fill="#948454"><rect x="143" y="78" width="7" height="1"/><rect x="176" y="95" width="6" height="1"/><rect x="348" y="284" width="7" height="1"/><rect x="401" y="186" width="6" height="1"/></g>
+<!-- subtle vignette -->
+<rect x="0" y="0" width="448" height="320" fill="none" stroke="#33291f" stroke-width="4" opacity=".65"/>
+</svg>
