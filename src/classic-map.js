@@ -1,6 +1,8 @@
+import bg64 from './map0-generated-data.js';
 const F=document.querySelector('#field');
-const gritty=new Image();gritty.src='assets/map0-gritty.svg?v=21';
-const atlas=new Image();atlas.src='assets/terrain-atlas.svg?v=21';
+const patch=document.createElement('style');patch.textContent='#terrainCanvas{opacity:1!important;display:block!important;visibility:visible!important}.sprite::after{display:none!important}.sprite .unitSprite{display:block!important}';document.head.append(patch);
+const fullMap=new Image();fullMap.src='data:image/jpeg;base64,'+bg64;
+const atlas=new Image();atlas.src='assets/terrain-atlas.svg?v=22';
 const type=t=>['forest','hill','river','bridge','gate','village','plain'].find(x=>t?.classList.contains(x))||'plain';
 const TILE=32;
 const src={grass0:[0,0],grass1:[1,0],forest:[2,0],hill:[3,0],river:[4,0],bridge:[5,0],village:[6,0],gate:[7,0],roadDiag:[0,1],roadH:[1,1],forestEdge:[2,1],cliff:[3,1],riverL:[4,1],riverR:[5,1],grass2:[6,1],dirt:[7,1]};
@@ -9,5 +11,5 @@ function canvas(){let c=document.querySelector('#terrainCanvas');if(!c){c=docume
 function drawTile(ctx,key,x,y,w,h){const [sx,sy]=src[key];ctx.drawImage(atlas,sx*TILE,sy*TILE,TILE,TILE,x,y,w,h)}
 function pick(x,y,tiles){const at=(a,b)=>a<0||b<0||a>13||b>9?null:type(tiles[b*14+a]),t=at(x,y);if(t==='forest'){const n=[at(x-1,y),at(x+1,y),at(x,y-1),at(x,y+1)].filter(v=>v==='forest').length;return n>=2?'forest':'forestEdge'}if(t==='hill')return at(x,y+1)==='hill'?'hill':'cliff';if(t==='river'){const l=at(x-1,y),r=at(x+1,y);if(l!=='river'&&l!=='bridge')return'riverL';if(r!=='river'&&r!=='bridge')return'riverR';return'river'}if(t==='bridge')return'bridge';if(t==='gate')return'gate';if(t==='village')return'village';return((x*7+y*11)%3===0)?'grass1':((x+y)%5===0?'grass2':'grass0')}
 function paintFallback(ctx,w,h){if(!atlas.complete)return;ctx.imageSmoothingEnabled=false;const cw=w/14,ch=h/10,tiles=[...F.children];for(let yy=0;yy<10;yy++)for(let xx=0;xx<14;xx++)drawTile(ctx,pick(xx,yy,tiles),xx*cw,yy*ch,cw+1,ch+1)}
-function paint(){if(!F)return;layout();const {x,w,h}=canvas();x.clearRect(0,0,w,h);const first=(document.querySelector('#title')?.textContent||'').includes('颍川');document.body.dataset.chapter=first?'yingchuan':'other';if(first&&gritty.complete&&gritty.naturalWidth){x.imageSmoothingEnabled=true;x.drawImage(gritty,0,0,w,h);return}paintFallback(x,w,h)}
-gritty.onload=paint;gritty.onerror=paint;atlas.onload=paint;new MutationObserver(paint).observe(F,{childList:true,subtree:true});addEventListener('resize',paint);setTimeout(paint,20);setTimeout(paint,120);setTimeout(paint,420);
+function paint(){if(!F)return;layout();const {x,w,h}=canvas();x.clearRect(0,0,w,h);const first=(document.querySelector('#title')?.textContent||'').includes('颍川');document.body.dataset.chapter=first?'yingchuan':'other';if(first&&fullMap.complete&&fullMap.naturalWidth){x.imageSmoothingEnabled=true;x.drawImage(fullMap,0,0,w,h);return}paintFallback(x,w,h)}
+fullMap.onload=paint;fullMap.onerror=paint;atlas.onload=paint;new MutationObserver(paint).observe(F,{childList:true,subtree:true});addEventListener('resize',paint);setTimeout(paint,20);setTimeout(paint,120);setTimeout(paint,420);
