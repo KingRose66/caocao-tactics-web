@@ -1,10 +1,12 @@
-/* V28: battle hitboxes are DIVs, so Safari cannot paint native button chrome. */
-#field>.tile{box-sizing:border-box!important;position:absolute!important;display:block!important;margin:0!important;padding:0!important;min-width:0!important;min-height:0!important;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;color:transparent!important;overflow:visible!important;cursor:pointer!important;z-index:1!important;-webkit-tap-highlight-color:transparent!important}
-#field>.tile::before,#field>.tile::after{display:none!important;content:none!important}
-#field>.tile:hover,#field>.tile:focus,#field>.tile:focus-visible,#field>.tile:active{border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important}
-#field>.tile.move{background:rgba(31,99,190,.22)!important;box-shadow:inset 0 0 0 1px rgba(142,193,255,.65)!important}
-#field>.tile.target{background:rgba(177,36,31,.22)!important;box-shadow:inset 0 0 0 1px rgba(255,114,96,.65)!important}
-#field>.tile.skilltarget{background:rgba(113,57,152,.20)!important;box-shadow:inset 0 0 0 1px rgba(211,157,244,.62)!important}
-#field>.tile.selected{z-index:18!important}
-#field>.tile.selected::before{content:""!important;display:block!important;position:absolute!important;inset:9%!important;border:2px solid #f3e2a4!important;box-shadow:0 0 0 1px #2c2419!important;background:transparent!important}
+/* V29: battlefield interaction layer detached from all legacy .tile rules. */
+#field>.cell-hitbox{box-sizing:border-box!important;position:absolute!important;display:block!important;margin:0!important;padding:0!important;min-width:0!important;min-height:0!important;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;color:transparent!important;overflow:visible!important;cursor:pointer!important;z-index:1!important;-webkit-tap-highlight-color:transparent!important}
+#field>.cell-hitbox::before,#field>.cell-hitbox::after{display:none!important;content:none!important}
+#field>.cell-hitbox:hover,#field>.cell-hitbox:focus,#field>.cell-hitbox:focus-visible,#field>.cell-hitbox:active{border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important}
+#field>.cell-hitbox.move{background:rgba(31,99,190,.22)!important;box-shadow:inset 0 0 0 1px rgba(142,193,255,.65)!important}
+#field>.cell-hitbox.target{background:rgba(177,36,31,.22)!important;box-shadow:inset 0 0 0 1px rgba(255,114,96,.65)!important}
+#field>.cell-hitbox.skilltarget{background:rgba(113,57,152,.20)!important;box-shadow:inset 0 0 0 1px rgba(211,157,244,.62)!important}
+#field>.cell-hitbox.selected{z-index:18!important}
+#field>.cell-hitbox.selected::before{content:""!important;display:block!important;position:absolute!important;inset:9%!important;border:2px solid #f3e2a4!important;box-shadow:0 0 0 1px #2c2419!important;background:transparent!important}
+#field>.cell-hitbox .name{display:none!important}
+#field>.cell-hitbox:hover .name,#field>.cell-hitbox.selected .name{display:block!important}
 .version-badge{position:fixed;right:6px;bottom:6px;z-index:9999;padding:2px 5px;background:#111c;color:#d9c99b;font:10px/1.2 monospace;border:1px solid #6b5a38;pointer-events:none}
