@@ -1,15 +1,13 @@
 const F=document.querySelector('#field');
+const fullMap=new Image();fullMap.src='assets/map0-handcrafted.svg';
 const atlas=new Image();atlas.src='assets/terrain-atlas.svg';
 const type=t=>['forest','hill','river','bridge','gate','village','plain'].find(x=>t?.classList.contains(x))||'plain';
-const TILE=32, cols=8;
+const TILE=32;
 const src={grass0:[0,0],grass1:[1,0],forest:[2,0],hill:[3,0],river:[4,0],bridge:[5,0],village:[6,0],gate:[7,0],roadDiag:[0,1],roadH:[1,1],forestEdge:[2,1],cliff:[3,1],riverL:[4,1],riverR:[5,1],grass2:[6,1],dirt:[7,1]};
-function layout(){if(!F)return;[...F.children].forEach((t,i)=>{const x=i%14,y=Math.floor(i/14);t.style.left=(x*100/14)+'%';t.style.top=(y*10)+'%';t.style.width=(100/14)+'%';t.style.height='10%';});}
+function layout(){if(!F)return;[...F.children].forEach((t,i)=>{const x=i%14,y=Math.floor(i/14);t.style.position='absolute';t.style.left=(x*100/14)+'%';t.style.top=(y*10)+'%';t.style.width=(100/14)+'%';t.style.height='10%';});}
 function canvas(){let c=document.querySelector('#terrainCanvas');if(!c){c=document.createElement('canvas');c.id='terrainCanvas';document.querySelector('.frame')?.prepend(c)}const w=F.clientWidth,h=F.clientHeight,d=Math.max(1,devicePixelRatio||1);c.style.width=w+'px';c.style.height=h+'px';c.width=Math.round(w*d);c.height=Math.round(h*d);const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);x.imageSmoothingEnabled=false;return{x,w,h}}
 function drawTile(ctx,key,x,y,w,h){const [sx,sy]=src[key];ctx.drawImage(atlas,sx*TILE,sy*TILE,TILE,TILE,x,y,w,h)}
-function roadSet(title){const S=new Set();if(title.includes('汜水')||title.includes('虎牢')){[[2,9],[3,8],[4,7],[5,6],[6,5],[6,4],[6,3]].forEach(p=>S.add(p.join(',')))}else if(title.includes('官渡')){[[1,9],[2,8],[3,7],[4,6],[5,5],[6,4],[7,3],[8,3]].forEach(p=>S.add(p.join(',')))}else{[[1,9],[2,8],[3,8],[4,7],[5,6],[6,5],[7,4],[8,3],[9,2],[10,1],[11,1]].forEach(p=>S.add(p.join(',')))}return S}
 function pick(x,y,tiles){const at=(a,b)=>a<0||b<0||a>13||b>9?null:type(tiles[b*14+a]),t=at(x,y);if(t==='forest'){const n=[at(x-1,y),at(x+1,y),at(x,y-1),at(x,y+1)].filter(v=>v==='forest').length;return n>=2?'forest':'forestEdge'}if(t==='hill')return at(x,y+1)==='hill'?'hill':'cliff';if(t==='river'){const l=at(x-1,y),r=at(x+1,y);if(l!=='river'&&l!=='bridge')return'riverL';if(r!=='river'&&r!=='bridge')return'riverR';return'river'}if(t==='bridge')return'bridge';if(t==='gate')return'gate';if(t==='village')return'village';return ((x*7+y*11)%3===0)?'grass1':((x+y)%5===0?'grass2':'grass0')}
-function paint(){if(!F||!atlas.complete)return;layout();const {x,w,h}=canvas(),cw=w/14,ch=h/10,tiles=[...F.children],roads=roadSet(document.querySelector('#title')?.textContent||'');x.clearRect(0,0,w,h);for(let yy=0;yy<10;yy++)for(let xx=0;xx<14;xx++){let key=pick(xx,yy,tiles);const t=type(tiles[yy*14+xx]);if(roads.has(xx+','+yy)&&t==='plain')key=((xx+yy)%2?'roadDiag':'roadH');drawTile(x,key,xx*cw,yy*ch,cw+1,ch+1)}
-// break the mechanical tile repetition with sparse atlas overlays
-for(let yy=0;yy<10;yy++)for(let xx=0;xx<14;xx++){const t=type(tiles[yy*14+xx]);if(t==='plain'&&!roads.has(xx+','+yy)&&((xx*13+yy*17)%7===0)){x.globalAlpha=.38;drawTile(x,'dirt',xx*cw+cw*.55,yy*ch+ch*.58,cw*.33,ch*.28);x.globalAlpha=1}}
-}
-atlas.onload=paint;new MutationObserver(paint).observe(F,{childList:true,subtree:true});addEventListener('resize',paint);setTimeout(paint,80);setTimeout(paint,320);
+function paintFallback(ctx,w,h){if(!atlas.complete)return;const cw=w/14,ch=h/10,tiles=[...F.children];for(let yy=0;yy<10;yy++)for(let xx=0;xx<14;xx++)drawTile(ctx,pick(xx,yy,tiles),xx*cw,yy*ch,cw+1,ch+1)}
+function paint(){if(!F)return;layout();const {x,w,h}=canvas();x.clearRect(0,0,w,h);const first=(document.querySelector('#title')?.textContent||'').includes('颍川');if(first&&fullMap.complete&&fullMap.naturalWidth){x.drawImage(fullMap,0,0,fullMap.naturalWidth,fullMap.naturalHeight,0,0,w,h)}else paintFallback(x,w,h)}
+fullMap.onload=paint;atlas.onload=paint;new MutationObserver(paint).observe(F,{childList:true,subtree:true});addEventListener('resize',paint);setTimeout(paint,30);setTimeout(paint,200);setTimeout(paint,500);
