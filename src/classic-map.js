@@ -1,5 +1,5 @@
 const F=document.querySelector('#field');
-const fullMap=new Image();fullMap.src='assets/map0-handcrafted.svg';
+const fullMap=new Image();fullMap.src='assets/map0-authentic.svg';
 const atlas=new Image();atlas.src='assets/terrain-atlas.svg';
 const type=t=>['forest','hill','river','bridge','gate','village','plain'].find(x=>t?.classList.contains(x))||'plain';
 const TILE=32;
