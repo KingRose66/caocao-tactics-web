@@ -1,0 +1,10 @@
+/* V21 hard switch: generated-look map + always-visible units */
+body[data-chapter="yingchuan"] #field{background:#786f4d url('../assets/map0-gritty.svg?v=21') center/100% 100% no-repeat!important}
+body[data-chapter="yingchuan"] #terrainCanvas{opacity:0!important}
+.field>.tile{overflow:visible!important}
+.unit{display:flex!important;position:absolute!important;inset:0!important;z-index:20!important;align-items:center!important;justify-content:center!important;overflow:visible!important;pointer-events:none!important}
+.sprite{display:block!important;position:relative!important;width:42px!important;height:48px!important;overflow:visible!important;z-index:21!important;filter:drop-shadow(1px 2px 1px rgba(0,0,0,.8))!important}
+.sprite i,.sprite .unitSprite{display:none!important}
+.sprite::after{content:""!important;display:block!important;position:absolute!important;left:5px!important;top:2px!important;width:32px!important;height:40px!important;background-image:url('../assets/unit-atlas.svg?v=21')!important;background-repeat:no-repeat!important;background-size:384px 40px!important;image-rendering:pixelated!important;transform:scale(1.5)!important;transform-origin:50% 85%!important}
+.sprite.cao::after{background-position:0 0!important}.sprite.dun::after{background-position:-32px 0!important}.sprite.yuan::after{background-position:-64px 0!important}.sprite.ren::after{background-position:-96px 0!important}.sprite.xun::after{background-position:-128px 0!important}.sprite.inf::after{background-position:-160px 0!important}.sprite.spear::after{background-position:-192px 0!important}.sprite.archer::after{background-position:-224px 0!important}.sprite.zhangbao::after{background-position:-256px 0!important}.sprite.hua::after{background-position:-288px 0!important}.sprite.lubu::after{background-position:-320px 0!important}.sprite.yanliang::after{background-position:-352px 0!important}
+.hp{display:block!important;z-index:22!important}.name{z-index:23!important}.tile.selected{z-index:19!important}
