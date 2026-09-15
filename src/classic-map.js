@@ -1,1 +1,0 @@
-const F=document.querySelector('#field');function L(){if(!F)return;[...F.children].forEach((t,i)=>{t.style.position='absolute';t.style.left=(i%14)*100/14+'%';t.style.top=Math.floor(i/14)*10+'%';t.style.width=100/14+'%';t.style.height='10%'})}new MutationObserver(L).observe(F,{childList:true});addEventListener('resize',L);L();
