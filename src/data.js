@@ -11,29 +11,30 @@ export const TERRAIN = {
   b: { name: '木桥', cost: 1, def: 0, evade: 0, passable: true },
 };
 
-// Stage 11 HQ 原图为 1120×800。逻辑棋盘改为 28×20，恰好每格 40×40，
-// 让道路、树林、村落、河流与桥面按地图原生视觉颗粒对应，而不是旧版 80×80 粗格硬套。
+// Stage 11 HQ 原图为 1120×800。逻辑棋盘为 28×20，恰好每格 40×40。
+// 河道按“左岸岩壁 + 4 格水面 + 右岸岩壁”固定下来，桥面只覆盖真正的木桥，
+// 避免过去把河岸误判成河流、把桥外道路误判成木桥。
 const ROWS_28 = [
-  'rfhhhhfpfpppfpwwwwpfffrrrpph',
-  'vvvvhhpfrrrrppwwwwpfrpfrrfhh',
-  'vvvvppphpprppffwwwpfrfvvvvfp',
-  'pprpffhhfhfrrpfwwwprrfvvvvff',
-  'fpffpfhhhhhprrfwwwppprfrvvpr',
-  'hfhhfhffhhhprffwwwwpfrrprrrp',
-  'hhhfhhppffffrfpwwwwpprprrrpr',
-  'ffhfhhhrpprrppfwwwwpfrrpffhf',
-  'hfffhhhprprrpfpwwwwprrffffhh',
-  'fhfrfffprrrrrrpbbbbbrphfhhhf',
-  'fhhhfhprffprrrpbbbbbrrrppphp',
-  'phhhhhhprprrpfpwwwpppprrrfpf',
-  'rpppphhfrrpppffwwwwpfrrffhpp',
-  'ffrrffprrpvvvvpwwwwfrfphhfpf',
-  'fhfrrrrrrpvvvvppwwwpfphhhppp',
-  'fhhprrrprrrvvfppwwwprfhhhpph',
-  'hhfrrrffrrpppfhwwwwpfpffffpf',
-  'hfrrrpprrrrpffpwwwwppprffppf',
-  'fppfppfffprrpfpwwwwpfffffffh',
-  'hhhhhhhhhprpffpwwwwppfffppph',
+  'rfhhhhfpfpppfphwwwwhffrrrpph',
+  'vvvvhhpfrrrrpphwwwwhrpfrrfhh',
+  'vvvvppphpprppfhwwwwhrfvvvvfp',
+  'pprpffhhfhfrrphwwwwhrfvvvvff',
+  'fpffpfhhhhhprrhwwwwhprfrvvpr',
+  'hfhhfhffhhhprfhwwwwhfrrprrrp',
+  'hhhfhhppffffrfhwwwwhprprrrpr',
+  'ffhfhhhrpprrpphwwwwhfrrpffhf',
+  'hfffhhhprprrpfhwwwwhrrffffhh',
+  'fhfrfffprrrrrrrbbbbrrphfhhhf',
+  'fhhhfhprffprrrrbbbbrrrrppphp',
+  'phhhhhhprprrpfhwwwwhpprrrfpf',
+  'rpppphhfrrpppfhwwwwhfrrffhpp',
+  'ffrrffprrpvvvvhwwwwhrfphhfpf',
+  'fhfrrrrrrpvvvvhwwwwhfphhhppp',
+  'fhhprrrprrrvvfhwwwwhrfhhhpph',
+  'hhfrrrffrrpppfhwwwwhfpffffpf',
+  'hfrrrpprrrrpffhwwwwhpprffppf',
+  'fppfppfffprrpfhwwwwhfffffffh',
+  'hhhhhhhhhprpffhwwwwhpfffppph',
 ];
 
 export const YINGCHUAN_TERRAIN = ROWS_28.map((row, y) => {
