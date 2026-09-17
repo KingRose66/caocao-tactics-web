@@ -61,16 +61,16 @@ export const CHAPTER = {
   units: [
     u('cao','曹操','ally','lord',5,17,132,45,36,8,1,1,{name:'倚天剑势',power:1.65,mp:12,range:2,cdMax:3,maxMp:36}),
     u('dun','夏侯惇','ally','cavalry',3,16,150,52,35,10,1,1,{name:'刚烈突击',power:1.6,mp:10,range:1,cdMax:3,maxMp:30}),
-    u('yuan','夏侯渊','ally','archer',6,18,116,48,28,9,4,7,{name:'穿云箭',power:1.72,mp:14,range:8,cdMax:4,maxMp:34}),
+    u('yuan','夏侯渊','ally','archer',6,18,116,48,28,9,3,5,{name:'穿云箭',power:1.72,mp:14,range:6,cdMax:4,maxMp:34}),
     u('ren','曹仁','ally','infantry',7,17,164,41,44,8,1,1,{name:'铁壁反击',power:1.38,mp:10,range:1,cdMax:4,maxMp:30}),
 
-    u('e1','黄巾枪兵','enemy','spear',20,10,96,35,25,7,1,1,null,{role:'guard',anchorX:20,anchorY:10,leash:5,wakeDist:7}),
-    u('e2','黄巾刀兵','enemy','infantry',21,9,92,34,24,7,1,1,null,{role:'guard',anchorX:21,anchorY:9,leash:5,wakeDist:7}),
-    u('e3','黄巾弓手','enemy','archer',23,7,78,37,19,6,4,6,null,{role:'ranged',anchorX:23,anchorY:7,leash:7,wakeTurn:3}),
-    u('e4','黄巾枪兵','enemy','spear',24,10,100,36,26,7,1,1,null,{role:'guard',anchorX:24,anchorY:10,leash:6,wakeDist:8}),
-    u('e5','黄巾弓手','enemy','archer',25,6,80,38,19,6,4,6,null,{role:'ranged',anchorX:25,anchorY:6,leash:7,wakeTurn:4}),
-    u('e6','黄巾骑兵','enemy','cavalry',24,12,112,40,27,9,1,1,null,{role:'reserve',anchorX:24,anchorY:12,leash:9,wakeTurn:5}),
-    u('zhangbao','张宝','enemy','boss',24,3,188,49,33,6,3,5,{name:'妖火',power:1.58,mp:0,range:6,cdMax:3,maxMp:99},{role:'boss',anchorX:24,anchorY:3,leash:6,wakeTurn:8}),
+    u('e1','黄巾枪兵','enemy','spear',20,10,102,36,27,7,1,1,null,{role:'guard',anchorX:20,anchorY:10,leash:4,wakeDist:7}),
+    u('e2','黄巾刀兵','enemy','infantry',21,9,98,35,25,7,1,1,null,{role:'guard',anchorX:21,anchorY:9,leash:4,wakeDist:7}),
+    u('e3','黄巾弓手','enemy','archer',23,7,82,38,20,6,3,5,null,{role:'ranged',anchorX:23,anchorY:7,leash:6,wakeTurn:3}),
+    u('e4','黄巾枪兵','enemy','spear',24,10,104,37,27,7,1,1,null,{role:'guard',anchorX:24,anchorY:10,leash:5,wakeDist:8}),
+    u('e5','黄巾弓手','enemy','archer',25,6,84,39,20,6,3,5,null,{role:'ranged',anchorX:25,anchorY:6,leash:6,wakeTurn:4}),
+    u('e6','黄巾骑兵','enemy','cavalry',24,12,118,42,28,9,1,1,null,{role:'reserve',anchorX:24,anchorY:12,leash:8,wakeTurn:4}),
+    u('zhangbao','张宝','enemy','boss',24,3,198,50,35,6,3,5,{name:'妖火',power:1.58,mp:0,range:6,cdMax:3,maxMp:99},{role:'boss',anchorX:24,anchorY:3,leash:5,wakeTurn:8}),
   ],
 };
 
