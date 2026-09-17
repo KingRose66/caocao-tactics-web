@@ -1,0 +1,15 @@
+.unit{width:4.15%;min-width:33px;max-width:50px;transform:translate(-50%,-73%)}
+.unit-sprite{aspect-ratio:56/62}
+.unit-name{margin-top:-5px;font-size:9px;letter-spacing:.02em;background:rgba(8,12,16,.88);border:0;border-bottom:2px solid #3987df}
+.unit.enemy .unit-name{border-bottom-color:#df5142}
+.unit.cavalry .unit-sprite{transform:scale(1.08);transform-origin:center bottom}
+.unit.archer .unit-sprite{transform:scale(.98);transform-origin:center bottom}
+.attack-fx{position:absolute;z-index:20;pointer-events:none;left:0;top:0;transform:translate(-50%,-50%)}
+.attack-fx.arrow{width:22px;height:3px;background:linear-gradient(90deg,#6b431e 0 70%,#eee5ca 71% 100%);box-shadow:0 0 2px #000;animation:projectile .48s linear forwards}
+.attack-fx.arrow:after{content:"";position:absolute;left:-5px;top:-3px;border-right:6px solid #b9873e;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.attack-fx.slash{width:34px;height:34px;border-top:4px solid #fff1b2;border-right:3px solid #d8b363;border-radius:50%;filter:drop-shadow(0 0 3px #fff);animation:slash .34s ease-out forwards}
+.attack-fx.spell{width:30px;height:30px;border:3px solid #d06dff;border-radius:50%;box-shadow:0 0 8px #8c2fff, inset 0 0 8px #ffbdff;animation:spellshot .46s ease-out forwards}
+@keyframes projectile{0%{opacity:0;transform:translate(-50%,-50%) translate(0,0) rotate(-8deg)}10%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) translate(var(--tx),var(--ty)) rotate(-8deg)}}
+@keyframes spellshot{0%{opacity:.2;transform:translate(-50%,-50%) translate(0,0) scale(.5)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) translate(var(--tx),var(--ty)) scale(1.25)}}
+@keyframes slash{0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-65deg)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.25) rotate(35deg)}}
+@media(max-width:780px){.unit{min-width:27px}.unit-name{font-size:7px}}
