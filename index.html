@@ -14,7 +14,7 @@
     <div class="stage-badge">BATTLE BUILD 13</div>
   </header>
   <section class="battle-head">
-    <div><h2>颍川之战</h2><p>突破黄巾前阵，击破张宝。曹操阵亡则失败。</p></div>
+    <div><h2>颍川之战</h2><p>突破河桥防线，击破张宝。曹操阵亡则失败。</p></div>
     <div class="turn-box"><span class="tag turn" id="turnText">第 1 回合</span><span class="tag" id="phaseText">我军阶段</span></div>
   </section>
   <section class="battle-layout">
@@ -22,15 +22,10 @@
       <div class="battlefield" id="battlefield">
         <img id="mapImage" alt="颍川之战连续战场地图" width="1120" height="800">
         <div class="logic-grid" id="logicGrid" aria-label="隐藏逻辑棋盘"></div>
-        <div class="range-layer" id="rangeLayer"></div>
-        <div class="unit-layer" id="unitLayer"></div>
-        <div class="fx-layer" id="fxLayer"></div>
+        <div class="range-layer" id="rangeLayer"></div><div class="unit-layer" id="unitLayer"></div><div class="fx-layer" id="fxLayer"></div>
       </div>
-      <div class="commands">
-        <span class="command-text" id="commandText">正在加载战场…</span>
-        <button id="btnAttack">攻击</button><button id="btnSkill">技能</button><button id="btnWait">待机</button><button id="btnCancel">返回</button><button id="btnEnd">结束回合</button>
-      </div>
-      <div class="dialogue"><div class="mini-portrait" id="dialogPortrait"></div><div><b>曹操</b><p>桥头只是前阵。稳住正面，留意林间侧翼，莫让黄巾牵着走。</p><div class="map-status" id="mapStatus">正在校验高清战场地图…</div></div></div>
+      <div class="commands"><span class="command-text" id="commandText">正在加载战场…</span><button id="btnAttack">攻击</button><button id="btnSkill">技能</button><button id="btnWait">待机</button><button id="btnCancel">返回</button><button id="btnEnd">结束回合</button></div>
+      <div class="dialogue"><div class="mini-portrait" id="dialogPortrait"></div><div><b>曹操</b><p>桥头不可硬挤。先看清敌军阵位，再决定由谁抢桥、谁压制后阵。</p><div class="map-status" id="mapStatus">正在校验高清战场地图…</div></div></div>
     </div>
     <aside class="side">
       <section class="panel" id="unitInfo"><div class="panel-title">武将 <span>未选择</span></div><div class="empty-info">点击我军武将查看信息并行动。</div></section>
@@ -42,5 +37,4 @@
 </main>
 <div class="result-modal" id="resultModal"><div class="result-card"><h2 id="resultTitle">胜利</h2><p id="resultText"></p><button id="btnRestart">重玩本关</button></div></div>
 <script type="module" src="src/game.js?v=13"></script>
-</body>
-</html>
+</body></html>
