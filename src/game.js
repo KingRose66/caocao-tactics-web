@@ -13,14 +13,14 @@ const ui={};
 async function loadMap(){
   const status=$('#mapStatus'),image=$('#mapImage');
   const texts=await Promise.all(Array.from({length:MAP.parts},async(_,i)=>{
-    const r=await fetch(`${MAP.base}${i}.b64?v=15`,{cache:'no-store'});if(!r.ok)throw new Error(`地图分片 ${i} HTTP ${r.status}`);
+    const r=await fetch(`${MAP.base}${i}.b64?v=16`,{cache:'no-store'});if(!r.ok)throw new Error(`地图分片 ${i} HTTP ${r.status}`);
     const t=(await r.text()).trim(),expected=i===MAP.parts-1?MAP.last:3000;if(t.length!==expected)throw new Error(`地图分片 ${i} 长度 ${t.length}/${expected}`);return t;
   }));
   const b64=texts.join('');if(b64.length!==MAP.len||!b64.startsWith('/9j/'))throw new Error('地图完整性校验失败');
   const raw=atob(b64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
   const url=URL.createObjectURL(new Blob([bytes],{type:'image/jpeg'}));await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject;image.src=url;});
   if(image.naturalWidth!==MAP.w||image.naturalHeight!==MAP.h)throw new Error('地图尺寸校验失败');
-  status.textContent='地图 1120×800 · 28×20 逻辑地形已校准 · BATTLE BUILD 15';
+  status.textContent='地图 1120×800 · 28×20 逻辑地形已校准 · BATTLE BUILD 16';
 }
 
 function setup(){
@@ -90,32 +90,42 @@ function attackFx(a,d,isSkill){const node=el('div',`attack-fx ${isSkill?'spell':
 function fx(x,y,type,num){const d=el('div',`fx ${type}`,`-${num}`);d.style.left=`${(x+.5)/COLS*100}%`;d.style.top=`${(y+.42)/ROWS*100}%`;ui.fx.appendChild(d);setTimeout(()=>d.remove(),700);}
 function addLog(s){state.logs.unshift(s);state.logs=state.logs.slice(0,8);if(ui.log)ui.log.innerHTML=state.logs.map(x=>`<li>${x}</li>`).join('');}
 
-// BUILD 15：小型三国战棋兵模。重点是历史武将轮廓、兵种辨识和较自然的人体比例，
-// 不再使用上一版“方块头 + 方块躯干”的几何小人。
+// BUILD 16：真正按老式 SRPG 像素棋子重做。所有主轮廓都落在整数像素网格上，
+// 不再用圆润曲线画“缩小版插画”。地图层只保留一个小棋子和阵营底条。
 function spriteSVG(u){
   const ally=u.side==='ally';
-  const main=ally?'#2e66a0':'#a13d31',dark=ally?'#173853':'#5f251f',mid=ally?'#477daf':'#bd5948',base=ally?'#2f7dd6':'#d84539';
-  const accent='#d7b35a',skin='#c99663',hair='#21170f',steel='#d7d1c2',wood='#7d5732',horse='#5a3e28',boot='#241c17',outline='#17120f';
-  const p=[];
-  p.push(`<ellipse cx="64" cy="135" rx="35" ry="7" fill="#000" opacity=".35"/><rect x="37" y="132" width="54" height="5" rx="1" fill="${base}"/>`);
+  const blue='#2d67a5',blueDark='#153b67',red='#a84034',redDark='#64241f';
+  const main=ally?blue:red,dark=ally?blueDark:redDark,side=ally?'#3b83d5':'#dd4c3f';
+  const gold='#d0a94f',skin='#c8905b',ink='#171311',steel='#ded8c8',wood='#76502b',leather='#4c3322';
+  const R=(x,y,w,h,fill,extra='')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" ${extra}/>`;
+  const P=(pts,fill,extra='')=>`<polygon points="${pts}" fill="${fill}" ${extra}/>`;
+  const L=(pts,stroke,width=2,extra='')=>`<polyline points="${pts}" fill="none" stroke="${stroke}" stroke-width="${width}" ${extra}/>`;
+  const out=[];
+  out.push(R(15,54,34,3,'#000','opacity=".35"'),R(18,52,28,3,side));
   if(u.cls==='cavalry'){
-    p.push(`<path d="M26 88 Q49 73 89 84 Q101 90 99 103 Q95 117 74 120 L42 118 Q23 112 20 100 Z" fill="${horse}" stroke="${outline}" stroke-width="4"/><path d="M86 88 Q91 62 108 58 Q119 58 124 68 L116 94 Q110 102 97 101 Z" fill="#69492e" stroke="${outline}" stroke-width="4"/><path d="M108 59 L115 48 L120 61" fill="#3d281b" stroke="${outline}" stroke-width="3"/><path d="M24 92 Q13 84 9 91" fill="none" stroke="${outline}" stroke-width="5"/><path d="M38 114 L34 137 M56 116 L55 138 M78 115 L81 138 M94 110 L101 136" stroke="${boot}" stroke-width="7" stroke-linecap="round"/><path d="M47 84 L84 84" stroke="${accent}" stroke-width="6"/><path d="M49 49 Q65 40 80 49 L85 88 Q67 96 46 88 Z" fill="${main}" stroke="${outline}" stroke-width="4"/><path d="M51 55 L66 69 L81 54" fill="none" stroke="${accent}" stroke-width="6"/><path d="M45 55 Q38 67 39 79 M84 56 Q94 64 96 74" fill="none" stroke="${skin}" stroke-width="8" stroke-linecap="round"/>`);
+    out.push(R(8,37,34,11,'#60412a'),R(13,34,24,7,'#6f4b2e'),R(39,31,9,14,'#60412a'),P('43,30 48,25 50,31','#4b3120'),R(11,47,4,8,leather),R(22,47,4,8,leather),R(34,47,4,8,leather),R(43,43,4,11,leather),R(10,34,5,3,'#2a1d16'),R(18,35,20,2,gold));
+    out.push(R(22,18,13,15,main),R(24,20,9,9,dark),R(18,22,5,10,main),R(34,21,5,10,main),R(24,12,9,7,skin),R(23,8,11,5,ink),R(25,6,7,3,gold),R(26,14,2,2,ink),R(31,14,2,2,ink),R(25,31,4,7,leather),R(32,31,4,7,leather));
+    out.push(R(28,2,2,6,ally?'#b8352f':'#81251f'),R(27,1,4,2,ally?'#c94a3d':'#9a3027'));
+    out.push(R(49,10,2,35,wood),P('46,10 50,3 54,10',steel));
   }else{
-    const robe=u.cls==='boss'?'#6b3471':main,robeDark=u.cls==='boss'?'#42204a':dark,arm=u.cls==='boss'?'#805086':mid;
-    p.push(u.cls==='boss'?`<path d="M45 112 L43 134 M82 112 L84 134" stroke="#3a1d42" stroke-width="12"/>`:`<path d="M47 104 L43 133 M78 104 L83 133" stroke="${dark}" stroke-width="12"/><path d="M35 132h20 M73 132h22" stroke="${boot}" stroke-width="7" stroke-linecap="round"/>`);
-    p.push(`<path d="M38 54 Q64 42 89 55 L94 107 Q66 120 33 107 Z" fill="${robe}" stroke="${outline}" stroke-width="4"/><path d="M43 62 Q64 55 85 62 L84 94 Q63 102 42 94 Z" fill="${robeDark}"/><path d="M42 59 L64 77 L86 58" fill="none" stroke="${accent}" stroke-width="6" stroke-linejoin="round"/><path d="M39 60 Q28 66 25 82 M89 60 Q100 67 102 83" fill="none" stroke="${arm}" stroke-width="11" stroke-linecap="round"/>`);
-    if(u.id==='cao')p.push(`<path d="M37 57 Q21 70 18 108 L36 101 Z" fill="${dark}" stroke="${outline}" stroke-width="4"/><rect x="56" y="83" width="17" height="13" rx="2" fill="${accent}" stroke="${outline}" stroke-width="2"/>`);
+    const boss=u.cls==='boss',robe=boss?'#66346f':main,robeDark=boss?'#3f2147':dark;
+    out.push(R(23,43,5,10,leather),R(34,43,5,10,leather),R(20,24,22,20,robe),R(23,27,16,13,robeDark),R(16,27,5,12,robe),R(42,27,5,12,robe),R(26,16,11,9,skin),R(25,11,13,6,ink),R(27,9,9,3,boss?'#8b4b8f':gold),R(28,19,2,2,ink),R(34,19,2,2,ink));
+    out.push(R(25,29,12,3,main),R(29,33,4,6,gold),R(23,41,17,3,dark));
+    if(u.id==='cao'){
+      out.push(R(23,10,17,3,'#202126'),R(27,6,9,4,'#202126'),R(31,1,2,6,'#bd382f'),R(33,2,3,2,'#d14a3e'),P('18,25 12,31 16,44 21,39',blueDark),R(46,18,2,28,steel),P('43,18 47,11 51,18',steel),R(43,29,8,2,gold));
+    }else if(boss){
+      out.push(R(25,8,13,4,'#4b2552'),R(28,4,7,4,'#6e3877'),R(49,13,2,36,wood),R(46,8,8,8,'#c77735'),R(48,10,4,4,'#ffe39c'));
+    }else if(u.cls==='archer'){
+      out.push(L('47,19 52,23 54,29 52,35 47,39','#c89b50',2,'stroke-linejoin="miter"'),L('47,19 48,39','#eadfc7',1),R(17,25,2,20,wood),R(14,26,2,18,wood),R(39,29,13,2,wood),P('52,27 57,30 52,33',steel));
+    }else if(u.cls==='spear'){
+      out.push(R(49,11,2,38,wood),P('46,11 50,3 54,11',steel));
+    }else if(u.cls==='infantry'){
+      out.push(P('12,28 18,24 21,29 20,40 15,44 11,39','#705139'),R(46,18,2,28,steel),P('43,18 47,11 51,18',steel));
+    }else{
+      out.push(R(46,18,2,28,steel),P('43,18 47,11 51,18',steel));
+    }
   }
-  p.push(`<rect x="59" y="39" width="11" height="12" rx="3" fill="${skin}"/><path d="M49 28 Q50 12 64 10 Q78 11 80 28 L76 38 Q64 49 52 38 Z" fill="${skin}" stroke="${outline}" stroke-width="3"/><path d="M49 27 Q53 11 64 10 Q78 11 80 28 L74 24 Q63 17 51 25 Z" fill="${hair}"/><circle cx="58" cy="30" r="2" fill="${outline}"/><circle cx="70" cy="30" r="2" fill="${outline}"/><path d="M63 32 L61 38 L67 38" fill="none" stroke="#815c3d" stroke-width="2"/>`);
-  if(u.id==='cao')p.push(`<path d="M48 19 Q64 4 80 19 L76 14 Q64 0 52 14 Z" fill="#1d2024" stroke="${outline}" stroke-width="3"/><path d="M64 5 Q71 -5 75 6" fill="none" stroke="#c83f32" stroke-width="5"/><rect x="57" y="10" width="15" height="5" rx="2" fill="${accent}"/><path d="M56 42 Q64 50 72 42" fill="none" stroke="${hair}" stroke-width="4"/>`);
-  else if(u.cls==='boss')p.push(`<path d="M49 18 Q64 4 79 18 L75 11 Q64 -1 53 11 Z" fill="#4a234e" stroke="${outline}" stroke-width="3"/><path d="M64 5 Q68 -3 72 5" fill="none" stroke="#cf463b" stroke-width="5"/><rect x="57" y="10" width="15" height="5" rx="2" fill="${accent}"/>`);
-  else p.push(`<path d="M49 20 Q64 6 79 20 L75 12 Q64 2 53 12 Z" fill="#242321" stroke="${outline}" stroke-width="3"/><rect x="57" y="11" width="15" height="4" rx="2" fill="${accent}"/>`);
-  if(u.cls==='archer')p.push(`<path d="M104 48 Q126 72 105 109" fill="none" stroke="#c59a55" stroke-width="5"/><path d="M104 48 L105 109" stroke="#eadfc6" stroke-width="2"/><path d="M76 78 L116 68" stroke="${wood}" stroke-width="4"/><path d="M119 67 l-9 -4 3 9z" fill="${steel}"/><path d="M38 64 l-9 39 M43 66 l-9 39" stroke="${wood}" stroke-width="4"/>`);
-  else if(u.cls==='spear')p.push(`<path d="M103 23 L96 125" stroke="${wood}" stroke-width="5"/><path d="M104 13 L95 30 L108 27 Z" fill="${steel}" stroke="${outline}" stroke-width="2"/>`);
-  else if(u.cls==='infantry')p.push(`<path d="M99 58 L119 30" stroke="${steel}" stroke-width="6"/><path d="M94 63 L104 69" stroke="${accent}" stroke-width="5"/><path d="M29 67 Q11 82 28 105 Q45 87 29 67 Z" fill="#705338" stroke="${accent}" stroke-width="4"/>`);
-  else if(u.cls==='boss')p.push(`<path d="M105 24 L104 124" stroke="${wood}" stroke-width="5"/><circle cx="105" cy="18" r="10" fill="#d17635" stroke="${accent}" stroke-width="4"/><path d="M98 18h14M105 11v14" stroke="#ffe7aa" stroke-width="2"/>`);
-  else p.push(`<path d="M96 57 L119 28" stroke="${steel}" stroke-width="6"/><path d="M91 62 L102 69" stroke="${accent}" stroke-width="5"/>`);
-  return `<svg viewBox="0 0 128 144" aria-hidden="true">${p.join('')}</svg>`;
+  return `<svg viewBox="0 0 64 58" shape-rendering="crispEdges" aria-hidden="true">${out.join('')}</svg>`;
 }
 
 function renderUnits(){
